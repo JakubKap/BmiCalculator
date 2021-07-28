@@ -10,26 +10,44 @@ class App extends Component {
     assignedBmiCategory: ""
    }
 
+   heightTextInputRef = React.createRef();
+   weightTextInputRef = React.createRef();
+
   render() {
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>Welcome to BMI calculator. Please, type your weight and height.</Text>
       <TextInput
         style={styles.textInput}
+        ref = {this.weightTextInputRef}
         placeholder = "Type your weight in kilograms (e.g. 60)"
         onChangeText = {typedWeightText => {this.setWeight(typedWeightText)}}
       />
       <TextInput
         style={styles.textInput}
+        ref = {this.heightTextInputRef}
         placeholder = "Type your height in meters (e.g. 1.70)"
         onChangeText = {typedHeightText => {this.setHeight(typedHeightText)}}
       />
-      <Button 
-      style={styles.basicButton}
-      onPress={this.calculateAndDisplayBmiWithCategory}
-      title = "Calculate your BMI"
-      accessibilityLabel = "When you click this button, application will calculate your BMI"
-      />
+      <View style = {{flexDirection: "row"}}>
+        <View style = {styles.basicButton}>
+          <Button 
+            style={styles.basicButton}
+            onPress={this.calculateAndDisplayBmiWithCategory}
+            title = "Calculate your BMI"
+            accessibilityLabel = "When you click this button, application will calculate your BMI"
+          />
+        </View>
+        <View style = {styles.specialButton}>
+          <Button
+            style={styles.specialButton}
+            color = '#bf3232'
+            onPress={this.clearCriterias}
+            title = "Clear criterias"
+            accessibilityLabel = "When you click this button, application will clear provided criterias"
+          />
+        </View>
+      </View>
       {this.state.isBmiCalculated ? 
         <Text style={styles.footerText}>Your BMI is <i>{this.state.roundedBmiValueToTwoDecimalPlaces} </i></Text> : null}
       {this.state.isBmiCalculated ? 
@@ -82,6 +100,13 @@ displayBmiAndAssignedCategory = () => {
   this.forceUpdate();
 }
 
+clearCriterias = () => {
+  this.state.isBmiCalculated = false;
+  this.weightTextInputRef.current.clear();
+  this.heightTextInputRef.current.clear();
+  this.forceUpdate();
+}
+
 }
 const styles = StyleSheet.create({
   container: {
@@ -109,7 +134,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   basicButton: {
-    margin: 10,
+    margin: 5,
+    padding: 10,
+  },
+  specialButton: {
+    margin: 5,
     padding: 10,
   }
 });
