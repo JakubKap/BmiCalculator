@@ -35,7 +35,6 @@ class App extends Component {
             style={styles.basicButton}
             onPress={this.calculateAndDisplayBmiWithCategory}
             title = "Calculate your BMI"
-            accessibilityLabel = "When you click this button, application will calculate your BMI"
           />
         </View>
         <View style = {styles.specialButton}>
@@ -44,7 +43,6 @@ class App extends Component {
             color = '#bf3232'
             onPress={this.clearCriterias}
             title = "Clear criterias"
-            accessibilityLabel = "When you click this button, application will clear provided criterias"
           />
         </View>
       </View>
